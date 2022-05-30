@@ -1,42 +1,40 @@
 import streamlit as st
-import pandas as pd
-import json
 from streamlit_folium import st_folium
 import folium
 from folium.plugins import HeatMap
 
-# Load data
-
-
-@st.experimental_singleton
-def load_data():
-    fp = 'data/ukr-civharm-2022-05-20.json'
-    with open(fp, 'r') as file:
-        content = json.loads(file.read())
-    data = pd.json_normalize(content, record_path='filters', meta=[
-                             'id', 'date', 'latitude', 'longitude', 'location', 'description'])
-    data = data[data['key'] == 'Type of area affected']
-    data = data.rename(columns={'value': 'type of area affected'})
-    data = data[['id', 'date', 'latitude', 'longitude', 'location',
-                 'type of area affected', 'description']].set_index('id')
-    return data
+from data_munging import load_data, get_min_max_date, get_dates_list, filter_by_date
 
 
 def app():
 
-    data = load_data()
-
-    locations = list(zip(data["latitude"], data["longitude"]))
-
     st.title('Heatmap')
 
-    # Create a Map instance
-    m = folium.Map(location=[49.107892273527504, 31.444630060047018],
-                   tiles='stamentoner', zoom_start=6, control_scale=True)
+    combined_geo_incidents_df, regions_incidents = load_data()
 
-    # Add heatmap to map instance
-    # Available parameters: HeatMap(data, name=None, min_opacity=0.5, max_zoom=18, max_val=1.0, radius=25, blur=15, gradient=None, overlay=True, control=True, show=True)
-    HeatMap(locations).add_to(m)
+    min_date, max_date = get_min_max_date(combined_geo_incidents_df)
 
-    # Show map
-    st_folium(m, width=1000, height=600)
+    dates_list = get_dates_list(combined_geo_incidents_df)
+
+    row1_1, row1_2 = st.columns((3, 1))
+
+    with row1_1:
+        start_date, end_date = st.select_slider(
+            'Select the date range', dates_list, value=[min_date, max_date])
+
+    row2_1, row2_2 = st.columns((3, 1))
+
+    filtered_by_date = filter_by_date(
+        combined_geo_incidents_df, start_date, end_date)
+
+    with row2_1:
+
+        m = folium.Map(location=[49.107892273527504, 31.444630060047018],
+                       tiles='stamentoner', zoom_start=6, control_scale=True)
+
+        heat_data = list(zip(
+            filtered_by_date["latitude"], filtered_by_date["longitude"]))
+
+        HeatMap(heat_data).add_to(m)
+
+        st_folium(m, width=1000, height=600)
