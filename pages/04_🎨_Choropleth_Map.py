@@ -2,7 +2,7 @@ import streamlit as st
 import mapclassify
 import matplotlib.pyplot as plt
 from palettable import colorbrewer
-
+from utils import local_css
 from data_munging import load_data
 
 
@@ -34,7 +34,7 @@ def map(method, k, cmap):
     classifier = k_classifiers[method](regions_incidents.n_events, k=k)
     mapping = dict([(i, s)
                    for i, s in enumerate(classifier.get_legend_classes())])
-    # print(classifier)
+
     f, ax = plt.subplots(1, figsize=(16, 9))
     regions_incidents.assign(cl=classifier.yb).plot(column='cl', categorical=True,
                                                     k=k, cmap=cmap, linewidth=0.1, ax=ax,
@@ -49,7 +49,22 @@ def map(method, k, cmap):
 
 def app():
 
+    local_css("style.css")
+
     st.title('Choropleth Map')
+
+    with st.sidebar:
+        st.title("About")
+        st.info(
+            """
+                This project aims to extract statistical insights and produce a meaningful cartographic visualization of civilian harm in Ukraine.
+        
+                ---
+                data - [Bellingcat](https://www.bellingcat.com/)
+        
+                author - [Oleksandr Pancheliuga](https://pancheliuga.com/) ©️ 2022 
+                """
+        )
 
     row1_1, row1_2 = st.columns((3, 1))
 
@@ -76,3 +91,6 @@ def app():
 
     with row1_1:
         map(method=method_val, k=class_val, cmap=cmap_val)
+
+
+app()

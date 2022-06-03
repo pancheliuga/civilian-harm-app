@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express
-
+from utils import local_css
 from data_munging import load_data, get_min_max_date, get_dates_list, filter_by_date, group_by_date, group_by_type, group_by_region
 
 chart_types = {
@@ -28,7 +28,29 @@ def pie(params):
 
 
 def app():
+    st.set_page_config(
+        page_title="Charts&Graphs",
+        page_icon="📊",
+        initial_sidebar_state="expanded",
+        layout="wide"
+    )
+
+    local_css("style.css")
+
     st.title('Charts & Graphs')
+
+    with st.sidebar:
+        st.title("About")
+        st.info(
+            """
+                This project aims to extract statistical insights and produce a meaningful cartographic visualization of civilian harm in Ukraine.
+        
+                ---
+                data - [Bellingcat](https://www.bellingcat.com/)
+        
+                author - [Oleksandr Pancheliuga](https://pancheliuga.com/) ©️ 2022 
+                """
+        )
 
     combined_geo_incidents_df, regions_incidents = load_data()
 
@@ -81,3 +103,6 @@ def app():
 
     with row3_2:
         pie(incidents_by_region_params)
+
+
+app()
