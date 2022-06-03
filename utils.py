@@ -87,3 +87,8 @@ def download_button(object_to_download, download_filename, button_text):
     # dl_link = f'<a download="{download_filename}" id="{button_id}" href="data:file/txt;base64,{b64}"><input type="button" kind="primary" value="{button_text}"></a><br></br>'
 
     st.markdown(dl_link, unsafe_allow_html=True)
+
+
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
