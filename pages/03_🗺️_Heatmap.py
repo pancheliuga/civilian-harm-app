@@ -9,7 +9,7 @@ from data_munging import load_data, get_min_max_date, get_dates_list, filter_by_
 def app():
 
     st.set_page_config(
-        page_title="Heatmap",
+        page_title="Heatmap - Spatial Data Analisis of Civilian Harm in Ukraine",
         page_icon="🗺️",
         initial_sidebar_state="expanded",
         layout="wide"
