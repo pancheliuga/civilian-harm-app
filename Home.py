@@ -4,7 +4,7 @@ from utils import local_css
 
 def run():
     st.set_page_config(
-        page_title="Home",
+        page_title="Home - Spatial Data Analisis of Civilian Harm in Ukraine",
         page_icon="🏠",
         initial_sidebar_state="expanded",
         layout="wide"

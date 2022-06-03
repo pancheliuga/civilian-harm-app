@@ -9,7 +9,7 @@ from utils import local_css, download_button
 
 def app():
     st.set_page_config(
-        page_title="Data Grid",
+        page_title="Data Grid - Spatial Data Analisis of Civilian Harm in Ukraine",
         page_icon="📝",
         initial_sidebar_state="expanded",
         layout="wide"
