@@ -2,14 +2,13 @@ import streamlit as st
 import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, DataReturnMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
-from st_aggrid.shared import JsCode
 from data_munging import load_data
 from utils import local_css, download_button
 
 
 def app():
     st.set_page_config(
-        page_title="Data Grid - Spatial Data Analisis of Civilian Harm in Ukraine",
+        page_title="Data Grid - Geospatial Data Analysis of Civilian Harm in Ukraine",
         page_icon="📝",
         initial_sidebar_state="expanded",
         layout="wide"

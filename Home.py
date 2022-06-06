@@ -4,7 +4,7 @@ from utils import local_css
 
 def run():
     st.set_page_config(
-        page_title="Home - Spatial Data Analisis of Civilian Harm in Ukraine",
+        page_title="Home - Geospatial Data Analysis of Civilian Harm in Ukraine",
         page_icon="🏠",
         initial_sidebar_state="expanded",
         layout="wide"
@@ -12,7 +12,7 @@ def run():
 
     local_css("style.css")
 
-    st.title("Spatial Data Analisis of Civilian Harm in Ukraine")
+    st.title("Geospatial Data Analysis of Civilian Harm in Ukraine")
 
     st.markdown(
         """

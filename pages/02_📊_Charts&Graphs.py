@@ -29,7 +29,7 @@ def pie(params):
 
 def app():
     st.set_page_config(
-        page_title="Charts&Graphs - Spatial Data Analisis of Civilian Harm in Ukraine",
+        page_title="Charts&Graphs - Geospatial Data Analysis of Civilian Harm in Ukraine",
         page_icon="📊",
         initial_sidebar_state="expanded",
         layout="wide"
