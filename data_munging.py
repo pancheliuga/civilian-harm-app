@@ -7,7 +7,7 @@ import numpy as np
 
 @st.experimental_memo
 def load_data():
-    fp = 'data/ukr-civharm-2022-12-15.json'
+    fp = 'data/ukr-civharm-2023-08-04.json'
 
     with open(fp, 'r') as file:
         data = json.loads(file.read())
